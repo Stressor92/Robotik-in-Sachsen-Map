@@ -4,7 +4,7 @@ import pandas as pd
 
 # Exceltabelle importieren
 df = pd.read_excel(r'E:\Programmierung\RobotikinSachsen\RobotikinSachsenMap\map.xlsx')
-#df.fillna(0)                                        #NaN Values zu 0
+# FÜR Frmatierungsfehler in der Exceldatei
 #df['latitude'] = pd.to_numeric(df['latitude'])      #Spalte latitude Datenformat Zahl
 #df['longitude'] = pd.to_numeric(df['longitude'])    #Spalte logitude Datenformat Zahl
 #df=df.dropna(subset=['longitude'])                  #NaN Values löschen
@@ -15,7 +15,7 @@ m = folium.Map(location=[51.0503651, 13.5363349],
                zoom_start=9,
                tiles='OpenStreetMap'
                )
-# geojson file importieren
+# geojson file importieren  = Sachsenumrandung mit Füllung
 kreisSachsen = f"E:\Programmierung\RobotikinSachsen\RobotikinSachsenMap\kreis3.geojson"
 folium.GeoJson(kreisSachsen,
                name='Kreis Sachsen')
@@ -42,7 +42,7 @@ folium.LayerControl().add_to(m)
 i = 1
 while i <= df.shape[0]:
     folium.Marker(
-        location=[df['longitude'].iloc[i-1], df['latitude'].iloc[i-1]],
+        location=[df['longitude'].iloc[i-1], df['latitude'].iloc[i-1]],        #Lage
         tooltip=(df['Name'].iloc[i-1]),
         popup=(df['Beschreibung'].iloc[i-1]),
         icon=folium.Icon(
