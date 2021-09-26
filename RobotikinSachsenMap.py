@@ -3,28 +3,28 @@ import folium
 import pandas as pd
 
 # Exceltabelle importieren
-df = pd.read_excel(r'E:\Programmierung\RobotikinSachsen\RobotikinSachsenMap\map.xlsx')
-# FÜR Frmatierungsfehler in der Exceldatei
+df = pd.read_excel(r'map.xlsx')
+# FÜR Formatierungsfehler in der Exceldatei
 #df['latitude'] = pd.to_numeric(df['latitude'])      #Spalte latitude Datenformat Zahl
 #df['longitude'] = pd.to_numeric(df['longitude'])    #Spalte logitude Datenformat Zahl
 #df=df.dropna(subset=['longitude'])                  #NaN Values löschen
 #df=df.dropna(subset=['latitude'])                   #NaN Values löschen
 
 # Map erstellen mit Wilsdruff als Zentrum
-m = folium.Map(location=[51.0503651, 13.5363349],
-               zoom_start=9,
-               tiles='OpenStreetMap'
+m = folium.Map(location=[51.0503651, 13.5363349],  #Koordinanten von Wilsdruff
+               zoom_start=9,                       #Zoomeinstellung, wie initial auf die Map gezoomt wird
+               tiles='OpenStreetMap'               #Art/Aussehen der Karte
                )
 # geojson file importieren  = Sachsenumrandung mit Füllung
-kreisSachsen = f"E:\Programmierung\RobotikinSachsen\RobotikinSachsenMap\kreis3.geojson"
+kreisSachsen = f"kreis3.geojson"    
 folium.GeoJson(kreisSachsen,
                name='Kreis Sachsen')
 # geojson file zur Map hinzufügen
 folium.Choropleth(
     geo_data=kreisSachsen,
-    fill_opacity=0.2,
-    line_opacity=0.6,
-    fill_color='#baff00',
+    fill_opacity=0.2,             #% der Deckung der Farbe
+    line_opacity=0.6,              
+    fill_color='#baff00',          #Farbe der Sachsenumrundung
     legend_name='Kreis Sachsen',
     name='Landkreise'
 ).add_to(m)
@@ -34,7 +34,7 @@ folium.LayerControl().add_to(m)
 
 # Costum Logo erstellen
 # iconXXX = folium.features.CustomIcon(
-#    'E:\Programmierung\RobotikinSachsen\RobotikinSachsenMap\XXX.png',
+#    'XXX.png',
 #    icon_size=(30,30)
 # )
 
@@ -55,6 +55,6 @@ while i <= df.shape[0]:
 
 
 # Map als html speichern
-m.save('E:\Programmierung\RobotikinSachsen\RobotikinSachsenMap\RobotikinSachsen.html')
+m.save('RobotikinSachsen.html')
 
 
